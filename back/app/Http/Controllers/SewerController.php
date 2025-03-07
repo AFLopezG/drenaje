@@ -30,6 +30,36 @@ class SewerController extends Controller
     public function store(StoreSewerRequest $request)
     {
         //
+        $sewer = new Sewer();
+
+        'lng',
+        'lat',
+        'geom',
+        'elevacion',
+        'ubicacion',
+        'codigo',
+        'altura',
+        'tipo',
+        'rasante',
+        'material',
+        'diametro',
+        'altapa',
+        'tiptapa',
+        'estado',
+        'fecha',
+        'estadotapa',
+        'apertura',
+        'drenaje',
+        'estadoci',
+        'aro',
+        'paredes',
+        'solera',
+        'condicion',
+        'sedimento',
+        'escalon',
+        'observacion',
+        'user_id',
+        
     }
 
     /**
