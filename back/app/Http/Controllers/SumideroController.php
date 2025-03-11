@@ -30,14 +30,26 @@ class SumideroController extends Controller
     public function store(StoreSumideroRequest $request)
     {
         //
+        $sumidero=new Sumidero();
+        $sumidero->material=$request->material;
+        $sumidero->tapa=$request->tapa;
+        $sumidero->estado=$request->estado;
+        $sumidero->apertura=$request->apertura;
+        $sumidero->sedimento=$request->sedimento;
+        $sumidero->altsed=$request->altsed;
+        $sumidero->condicion=$request->condicion;
+        $sumidero->sewer_id=$request->sewer_id;
+        $sumidero->save();
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Sumidero $sumidero)
+    public function show($id)
     {
         //
+        return Sumidero::where('sewer_id',$id)->get();
     }
 
     /**
@@ -59,8 +71,10 @@ class SumideroController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sumidero $sumidero)
+    public function destroy( $id)
     {
         //
+        $sumidero=Sumidero::find($id);
+        $sumidero->delete();
     }
 }

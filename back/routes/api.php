@@ -37,10 +37,24 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('detalle', App\Http\Controllers\DetalleController::class);
     Route::get('/listDiamts',[\App\Http\Controllers\InspectionController::class,'listDiamts']);
     Route::get('/listDiamplg',[\App\Http\Controllers\InspectionController::class,'listDiamplg']);
+    Route::get('/listDiametro',[\App\Http\Controllers\SewerController::class,'listDiametro']);
 
     Route::get('/listMaterial',[\App\Http\Controllers\CamaraController::class,'listMaterial']);
     Route::get('/listRasante',[\App\Http\Controllers\CamaraController::class,'listRasante']);
     Route::get('/reporte',[\App\Http\Controllers\CamaraController::class,'reporte']);
+
+    Route::apiResource('sewer', App\Http\Controllers\SewerController::class);
+    Route::apiResource('pipeline', App\Http\Controllers\PipelineController::class);
+    Route::apiResource('sumidero', App\Http\Controllers\SumideroController::class);
+    Route::apiResource('conducto', App\Http\Controllers\ConductoController::class);
+    
+    Route::get('/reporte',[\App\Http\Controllers\CamaraController::class,'reporte']);
+    Route::get('/listSewer',[\App\Http\Controllers\SewerController::class,'listSewer']);
+
+    
+    Route::get('/listMatPl',[\App\Http\Controllers\SewerController::class,'listMatPl']);
+    Route::get('/listRasPl',[\App\Http\Controllers\SewerController::class,'listRasPl']);
     
 });
+
 

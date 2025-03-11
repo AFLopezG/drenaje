@@ -46,7 +46,8 @@
       </q-item>
       <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="o_people" label="Usuarios" to="/usuarios" expand-icon="null" v-if="store.booluser"/>
       <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="device_hub" label="Inspeccion" to="/inspeccion" expand-icon="null" v-if="store.boolver"/>
-     
+      <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="cyclone" label="Insp Pluvial" to="/pluvial" expand-icon="null" v-if="store.boolver"/>
+           
       </q-list>
     </q-drawer>
 

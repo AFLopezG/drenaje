@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pipeline;
 use App\Http\Requests\StorePipelineRequest;
 use App\Http\Requests\UpdatePipelineRequest;
+use Illuminate\Process\Pipe;
 
 class PipelineController extends Controller
 {
@@ -30,14 +31,28 @@ class PipelineController extends Controller
     public function store(StorePipelineRequest $request)
     {
         //
+            # code...
+            //return $request;
+            $pipe=new Pipeline();
+            $pipe->tipo=$request->tipo;
+            $pipe->funcion=$request->funcion;
+            $pipe->gestion=$request->gestion;
+            $pipe->diametro=$request->diametro;
+            $pipe->material=$request->material;
+            $pipe->profundidad=$request->profundidad;
+            $pipe->origen=$request->origen;
+            $pipe->destino=$request->destino;
+            $pipe->sewer_id=$request->sewer_id;
+            $pipe->save();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pipeline $pipeline)
+    public function show($id)
     {
         //
+        return Pipeline::where('sewer_id',$id)->get();
     }
 
     /**
@@ -59,8 +74,10 @@ class PipelineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pipeline $pipeline)
+    public function destroy($id)
     {
         //
+        $pipe=Pipeline::find($id);
+        $pipe->delete();
     }
 }

@@ -30,14 +30,27 @@ class ConductoController extends Controller
     public function store(StoreConductoRequest $request)
     {
         //
+        $conducto=new Conducto();
+        $conducto->tipo=$request->tipo;
+        $conducto->material=$request->material;
+        $conducto->largo=$request->largo;
+        $conducto->ancho=$request->ancho;
+        $conducto->alto=$request->alto;
+        $conducto->diametro=$request->alto;
+        $conducto->profundidad=$request->profundidad;
+        $conducto->origen=$request->origen;
+        $conducto->destino=$request->destino;
+        $conducto->sewer_id=$request->sewer_id;
+        $conducto->save();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Conducto $conducto)
+    public function show($id)
     {
         //
+        return Conducto::where('sewer_id',$id)->get();
     }
 
     /**
@@ -59,8 +72,10 @@ class ConductoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Conducto $conducto)
+    public function destroy($id)
     {
         //
+        $conducto= Conducto::find($id);
+        $conducto->delete();
     }
 }

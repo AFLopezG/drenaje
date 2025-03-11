@@ -68,5 +68,25 @@ class DatabaseSeeder extends Seeder
             ["medida"=>0.95],
             ["medida"=>1.00],
         ]);
+        DB::table('diametro3')->insert([
+            ["medida"=>150],
+            ["medida"=>200],
+            ["medida"=>250],
+            ["medida"=>300],
+            ["medida"=>350],
+            ["medida"=>400],
+            ["medida"=>450],
+            ["medida"=>500],
+            ["medida"=>550],
+            ["medida"=>600],
+            ["medida"=>650],
+            ["medida"=>700],
+            ["medida"=>750],
+            ["medida"=>800],
+            ["medida"=>850],
+            ["medida"=>900],
+            ["medida"=>950],
+            ["medida"=>1000],
+        ]);
     }
 }
