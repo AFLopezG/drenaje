@@ -56,7 +56,6 @@ class SewerController extends Controller
         $sewer->diametro=$request->diametro;
         $sewer->altapa=$request->altapa;
         $sewer->tiptapa=$request->tiptapa;
-        $sewer->estado=$request->estado;
         $sewer->fecha=$request->fecha;
         $sewer->estadotapa=$request->estadotapa;
         $sewer->apertura=$request->apertura;
@@ -69,6 +68,10 @@ class SewerController extends Controller
         $sewer->sedimento=$request->sedimento;
         $sewer->escalon=$request->escalon;
         $sewer->observacion=$request->observacion;
+        $sewer->piedra=$request->piedra;
+        $sewer->lodo=$request->lodo;
+        $sewer->arena=$request->arena;
+        $sewer->basura=$request->basura;
         $sewer->user_id=$request->user()->id;
         $sewer->save();
 
@@ -80,9 +83,10 @@ class SewerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sewer $sewer)
+    public function show($id)
     {
         //
+        return Sewer::where('id',$id)->with('sumideros')->with('pipelines')->with('conductos')->get();
     }
 
     /**
@@ -96,9 +100,41 @@ class SewerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSewerRequest $request, Sewer $sewer)
+    public function update(Request $request, Sewer $sewer)
     {
         //
+        $sewer =Sewer::find($request->id);
+        $sewer->lng=$request->lng;
+        $sewer->lat=$request->lat;
+        $sewer->elevacion=$request->elevacion;
+        $sewer->ubicacion=$request->ubicacion;
+        $sewer->codigo=strtoupper($request->codigo);
+        $sewer->altura=$request->altura;
+        $sewer->tipo=$request->tipo;
+        $sewer->rasante=strtoupper($request->rasante);
+        $sewer->material=strtoupper($request->material);
+        $sewer->diametro=$request->diametro;
+        $sewer->altapa=$request->altapa;
+        $sewer->tiptapa=$request->tiptapa;
+        $sewer->fecha=$request->fecha;
+        $sewer->estadotapa=$request->estadotapa;
+        $sewer->apertura=$request->apertura;
+        $sewer->drenaje=$request->drenaje;
+        $sewer->estadoci=$request->estadoci;
+        $sewer->aro=$request->aro;
+        $sewer->paredes=$request->paredes;
+        $sewer->solera=$request->solera;
+        $sewer->condicion=$request->condicion;
+        $sewer->sedimento=$request->sedimento;
+        $sewer->escalon=$request->escalon;
+        $sewer->observacion=$request->observacion;
+        $sewer->piedra=$request->piedra;
+        $sewer->lodo=$request->lodo;
+        $sewer->arena=$request->arena;
+        $sewer->basura=$request->basura;
+        $sewer->save();
+
+        DB::SELECT("UPDATE sewers set geom=ST_MakePoint(lng,lat) where id=$sewer->id");
     }
 
     /**

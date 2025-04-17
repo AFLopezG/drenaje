@@ -31,7 +31,7 @@ class SumideroController extends Controller
     {
         //
         $sumidero=new Sumidero();
-        $sumidero->material=$request->material;
+        $sumidero->material=strtoupper($request->material);
         $sumidero->tapa=$request->tapa;
         $sumidero->estado=$request->estado;
         $sumidero->apertura=$request->apertura;

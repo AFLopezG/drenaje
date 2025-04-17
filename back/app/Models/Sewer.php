@@ -35,6 +35,10 @@ class Sewer extends Model
         'sedimento',
         'escalon',
         'observacion',
+        'piedra',
+        'lodo',
+        'arena',
+        'basura',
         'user_id',
 
     ];
@@ -43,6 +47,9 @@ class Sewer extends Model
     }
     public function sumideros(){
         return $this->hasMany(Sumidero::class);
+    }
+    public function conductos(){
+        return $this->hasMany(Conducto::class);
     }
     public function user(){
         return $this->belongsTo(User::class);

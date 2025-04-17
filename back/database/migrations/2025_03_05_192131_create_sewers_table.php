@@ -48,6 +48,11 @@ return new class extends Migration
             $table->string('escalon')->nullable();
             $table->string('observacion')->nullable();
 
+            $table->boolean('piedra')->nullable();
+            $table->boolean('lodo')->nullable();
+            $table->boolean('arena')->nullable();
+            $table->boolean('basura')->nullable();
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

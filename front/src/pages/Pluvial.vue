@@ -87,7 +87,7 @@
                     <div class="col-md-6 col-xs-12 q-pa-xs"><q-input v-model="sewer.altura" type="number" step="0.01" label="Altura Solera Cota (m) *" dense outlined/></div>
                     <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.tipo" :options="['CON CONO','SIN CONO','CAJA']" label="Tipo C.I." dense outlined/></div>
                     <div class="col-md-4 col-xs-12 q-pa-xs"><q-input v-model="sewer.altapa" type="number" step="0.01" label="Altura Tapa (m)" dense outlined/></div>
-                    <div class="col-md-4 col-xs-12 q-pa-xs"><q-select v-model="sewer.diametro" :options="diametros" label="Diametro Tapa (m)" dense outlined/></div>
+                    <div class="col-md-4 col-xs-12 q-pa-xs"><q-select v-model="sewer.diametro" :options="diametros2" label="Diametro Tapa (m)" dense outlined/></div>
                     <div class="col-md-4 col-xs-12 q-pa-xs"><q-select v-model="sewer.tiptapa" :options="['HIERRO','CONCRETO','SIN TAPA']" label="Tipo Tapa *" dense outlined/></div>
                     <div class="col-md-6 col-xs-12  q-pa-xs"><q-input v-model="sewer.rasante"  label="Rasante *"  style="text-transform: uppercase;" dense list="rasantes" outlined/>
                        <datalist id="rasantes">
@@ -103,7 +103,7 @@
                     </q-tab-panel>
                     <q-tab-panel name="DESCRIB">
                         <div class="row">
-                    <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.estado" :options="['BUENA','REGULAR','MALO']" label="Estado de Tapa *" dense outlined/></div>
+                    <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.estadotapa" :options="['BUENA','REGULAR','MALO']" label="Estado de Tapa *" dense outlined/></div>
                     <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.drenaje" :options="['BUENO','REGULAR','MALO']" label="Drenaje" dense outlined /></div>
                     <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.estadoci" :options="['BUENO','REGULAR','MALO']" label="Estado Camara " dense outlined/></div>
                     <div class="col-md-6 col-xs-12 q-pa-xs" >
@@ -115,10 +115,10 @@
                     <div class="col-md-4 col-xs-12 q-pa-xs"><q-select v-model="sewer.condicion" :options="['LIMPIO','OBSTRUIDO','SEDIMENTO','COLMATADO']" label="Condicion de Camara" dense outlined/></div>
                     <div class="col-md-8 col-xs-12 q-pa-xs" style="font-size: 10px;">
                         <label for="" class="text-h6">Tipo de Sedimento</label><br>
-                        <q-checkbox class="q-pa-xs" v-model="selection2" val="PIEDRA" label="PIEDRA" color="teal" dense/>
-                        <q-checkbox class="q-pa-xs" v-model="selection2" val="LODO" label="LODO" color="teal" dense/>
-                        <q-checkbox class="q-pa-xs" v-model="selection2" val="ARENA" label="ARENA" color="teal" dense />
-                        <q-checkbox class="q-pa-xs" v-model="selection2" val="BASURA" label="BASURA" color="teal" dense />
+                        <q-toggle class="q-pa-xs" v-model="sewer.piedra"  label="PIEDRA" color="amber" dense/>
+                        <q-toggle class="q-pa-xs" v-model="sewer.lodo"  label="LODO" color="amber" dense/>
+                        <q-toggle class="q-pa-xs" v-model="sewer.arena"  label="ARENA" color="amber" dense/>
+                        <q-toggle class="q-pa-xs" v-model="sewer.basura"  label="BASURA" color="amber" dense/>
                     </div>
                     <div class="col-md-6 col-xs-12 q-pa-xs"><q-select v-model="sewer.escalon" :options="['SI','NO']" label="Estado Escalon" dense outlined/></div>
 
@@ -226,8 +226,8 @@
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-select v-model="conducto.tipo"  label="Tipo" :options="['PLUVIAL','MIXTO']" dense outlined/></div>
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-select v-model="conducto.material"  label="Material" :options="['PVC','CONCRETOS']" dense outlined/></div>
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.largo"  label="Largo Tapa *" type="number" step="0.01" dense outlined/></div>
-                    <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.ancho"  label="Largo Ancho *" type="number" step="0.01" dense outlined/></div>
-                    <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.alto"  label="Largo Alto *" type="number" step="0.01" dense outlined/></div>
+                    <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.ancho"  label="Ancho Tapa *" type="number" step="0.01" dense outlined/></div>
+                    <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.alto"  label="Alto Tapa *" type="number" step="0.01" dense outlined/></div>
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-select v-model="conducto.diametro"  label="Diametro " :options="diametros" dense outlined/></div>
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-input v-model="conducto.profundidad"  label="Profundidad *" type="number" step="0.01" dense outlined/></div>
                     <div class="col-md-3 col-xs-6 q-pa-xs"><q-select v-model="conducto.apertura"  label="Apertura" :options="['SI','NO']" dense outlined/></div>
@@ -287,11 +287,12 @@
             selection2:[],
             selection3:[],
             diametros:[],
+            diametros2:[],
             listado:[],
             sumideros:[],
             conductos:[],
             conducto:{},
-            sewer:{apertura:'NO',fecha:date.formatDate(new Date(), 'YYYY-MM-DD'),aro:false,paredes:false,solera:false},
+            sewer:{apertura:'NO',fecha:date.formatDate(new Date(), 'YYYY-MM-DD'),aro:false,paredes:false,solera:false,piedra:false,lodo:false,arena:false,basura:false},
             tab:'INFO',
             columns:[
                 {label:'OP',name:'op',field:'op'},
@@ -337,6 +338,7 @@
         }
     },
     created(){
+        this.getDiam2()
         this.getDiam3()
         this.getSewer()
         this.getRasante()
@@ -422,7 +424,7 @@
             this.detalle.splice(props.rowIndex,1);
         },
         onReset(){
-            this.inspec={apertura:'NO',fecha:date.formatDate(new Date(), 'YYYY-MM-DD'),aro:false,paredes:false,solera:false}
+            this.inspec={apertura:'NO',fecha:date.formatDate(new Date(), 'YYYY-MM-DD'),aro:false,paredes:false,solera:false,piedra:false,lodo:false,arena:false,basura:false}
             this.sewer={}
             this.selection=[]
             this.selection2=[]
@@ -451,9 +453,17 @@
 
         getDiam3(){
         this.$api.get('listDiametro').then((res) => {
-            this.diametros
+            this.diametros=[]
             res.data.forEach(r => {
                 this.diametros.push(r.medida)
+            });
+            })
+        },
+        getDiam2(){
+        this.$api.get('listDiamplg').then((res) => {
+            this.diametros2=[]
+            res.data.forEach(r => {
+                this.diametros2.push(r.medida)
             });
             })
         },
@@ -486,8 +496,8 @@
             })
         },  
         registrar(){
-            let cad=''
-            let cad2=''
+            /*let cad=''
+            //let cad2=''
 
             this.selection2.forEach(r => {
                 cad+=r+ ', '
@@ -496,8 +506,8 @@
                 cad2+=r+ ', '
             });
 
-            this.sewer.sedimento=cad
-            this.sewer.estadofis=cad2
+            this.sewer.sedimento=cad*/
+            //this.sewer.estadofis=cad2
 
             if(this.sewer.id==undefined){
 
@@ -524,7 +534,212 @@
             }
 
         },
+        impresion(prop){
+            
+            this.$api.get('sewer/'+prop.id).then((res) => {
+                console.log(res.data)
+                let pr=res.data[0]
 
+            let detalle=pr.pipelines
+            let sumid=pr.sumideros
+            let condu=pr.conductos
+            let defecto=''
+            if(pr.aro) 
+                defecto+=' ARO '
+            else
+                defecto+=''
+            if(pr.paredes) 
+                defecto+=' PAREDES '
+            else
+                defecto+=''
+            if(pr.solera) 
+                defecto+=' SOLERA '
+            else
+                defecto+=''
+
+            let sedim=''
+            if(pr.piedra) 
+                sedim+=' PIEDRA '
+            else
+                sedim+=''
+            if(pr.lodo) 
+                sedim+=' LODO '
+            else
+                sedim+=''
+            if(pr.arena) 
+                sedim+=' ARENA '
+            else
+                sedim+=''
+            if(pr.basura) 
+                sedim+=' BASURA '
+            else
+                sedim+=''
+
+            if(pr.estadotapa==null) pr.estadotapa=''
+            if(pr.condicion==null) pr.condicion=''
+            if(pr.sedimento==null) pr.sedimento=''
+            if(pr.alturasedi==null) pr.alturasedi=''
+            if(pr.estadosol==null) pr.estadosol=''
+            if(pr.escalon==null) pr.escalon=''
+            if(pr.estadofis==null) pr.estadofis=''
+            let contenido=''
+            let contenido2=''
+            let contenido3=''
+            let num=1
+            let num2=1
+            let num3=1
+            let ingreso=detalle[0].diametro
+            let salida=detalle[1].diametro
+            detalle.forEach(r => {
+                if(r.gestion==null) r.gestion=''
+                contenido+='<tr><td>'+num+'</td><td>'+r.tipo+'</td><td>'+r.funcion+'</td><td>'+r.gestion+'</td><td>'+r.diametro+'</td><td>'+r.material+'</td><td>'+r.profundidad+'</td><td>'+r.origen+'</td><td>'+r.destino+'</td></tr>'
+                num++
+            });    
+            condu.forEach(p => {
+                contenido3+='<tr><td>'+num2+'</td><td>'+p.tipo+'</td><td>'+p.material+'</td><td>'+p.largo+'</td><td>'+p.ancho+'</td><td>'+p.alto+'</td><td>'+p.diametro+'</td><td>'+p.profundidad+'</td><td>'+p.origen+'</td><td>'+p.destino+'</td></tr>'
+                num2++
+            });
+            sumid.forEach(m => {
+                contenido2+='<tr><td>'+num3+'</td><td>'+m.material+'</td><td>'+m.tapa+'</td><td>'+m.estado+'</td><td>'+m.apertura+'</td><td>'+m.sedimento+'</td><td>'+m.altsed+'</td><td>'+m.condicion+'</td</tr>'
+                num3++
+            });
+
+            //let mapImage = LocalStorage.getItem('mapImage');
+            let cadena=`<html><head>
+            <style>
+            .tab1{
+                width:100%;
+                font-size:16px;
+                border-collapse: collapse;
+                text-align:center;
+            }
+            .tab1 td{
+                border: 1px solid;  
+            }
+            .tab2{
+                width:100%;
+                font-size:14px;
+                border-collapse: collapse;
+            }
+            .tab2 th{
+                height:25px;
+                border: 1px solid;  
+                width:15%;
+            }
+            .tab2 td{
+                border: 1px solid;  
+                text-align:center;
+                width:15%;
+                max-width:20%;
+            }
+            .tab3{
+                width:100%;
+                font-size:12px;
+                border-collapse: collapse;
+            }
+                .tab3 td{
+                text-align:center;
+                border: 1px solid;  
+                }
+            .tab3 th{
+                border: 1px solid;  
+                text-align:center;
+                }
+                        .tab4{
+                width:100%;
+                font-size:12px;
+                border-collapse: collapse;
+            }
+                .tab4 td{
+                text-align:left;
+                border: 1px solid;  
+                }
+                .img1{width:70px;height:70px; text-align:center;}
+                        .contenedor {
+            display: flex;
+            gap: 10px; /* Espacio entre los divs */
+            justify-content: space-between;
+        }
+
+        .item {
+            width: 20%;
+            padding: 10px;
+            border: 1px solid #000;
+            font-size:11px
+        }
+        .leaflet-control-attribution {
+            display: none; /* Oculta el nombre de Leaflet en el pie del mapa */
+        }
+            </style>
+            </head>
+            <body>
+            <table class='tab1'>
+                <tr><td style='width:15%'><img src='escudo.jpg' class='img1'></td>
+                    <td>CATASTRO DE LA RED DE ALCANTARILLADO PLUVIAL<br>GOBIERNO AUTÓNOMO MUNICIPAL DE ORURO<br>UNIDAD DE DRENAJE URBANO</td>
+                    <td style='width:15%'><img src='udu.jpeg' class='img1'></td></tr>
+            </table>
+            <table class='tab1'>
+                <tr><td>CROQUIS</td><td>Nro C.I. :`+pr.codigo+` </td><td>SUMIDERO</td></tr>
+                <tr><td  style='width:40%; height:200px; text-align:right; vertical-align:top;padding:5px'><img src='norte.jpg' width='20px'> </td>
+                <td style='width:30%'><div style='position: relative'><span style='position: absolute;top:20px; left:70px;'>`+pr.altura+' m</span> <span style="position: absolute;top:80px; left:20px;">'+ingreso+' mm    </span> <span style="position: absolute;top:80px; right:20px;">'+salida+` mm</span>
+                    <img src='camara.png' style='height:150px;'></div></td>
+                <td style='width:30%'><img src='sumidero.png' style='height:150px;'></td>
+                </tr>
+             </table>
+             <table class='tab2'>
+                <tr><th>Diametro de Tapa: </th><td>`+pr.diametro+'</td><th>Altura de Tapa: </th><td>'+pr.altapa+`</td></tr>
+                <tr><th>Rasante: </th><td>`+pr.rasante+'</td><th>Material Rasante: </th><td>'+pr.material+`</td></tr>
+             </table>
+             <table class='tab2'>
+                <tr><th>Ubicacion: </th><td colspan=5>`+pr.ubicacion+`</td></tr>
+                <tr><th>Longitud (X): </th><td>`+pr.lng+'</td><th>Latitud (Y): </th><td>'+pr.lat+'</td><th>Elevacion (Z): </th><td>'+pr.elevacion+`</td></tr>
+            </table>
+
+            <table class='tab3'><tr><th>Nro C.I. : `+pr.codigo+'</th><th>CARACTERISTICAS DEL POZO</th><th>FECHA: ' +pr.fecha+`</th></tr></table>
+            <table class='tab4' style='text-align:left'>
+                <tr>
+                    <td>
+                    <b>Tipo de tapa Estado : </b>`+pr.estadotapa+`<br>
+                    <b>Posibilidad de apertura : </b>`+pr.apertura+`<br>
+                    <b>Tipo de C.I.  : </b>`+pr.tipo+`<br>
+                    <b>Drenaje  : </b>`+pr.drenaje+`<br>
+                    <b>Estado de C.I. : </b>`+pr.estadoci+`<br>
+                    </td>
+                    <td>
+                    <b>Localizacion de Defectos : </b>`+defecto+`<br>
+                    <b>Condicion de C.I. : </b>`+pr.condicion+`<br>
+                    <b>Tipo de Sedimento : </b>`+sedim+`<br>
+                    <b>Condicion de Escalones : </b>`+pr.escalon+`<br>
+                    </td>
+                </tr>
+                <tr><td colspan=2><b>Observacion</b><br>`+pr.observacion+`<br></td></tr>
+                <tr><th colspan=2 style='text-align:center'>TUBERIAS EN C.I.</th></tr>
+            </table>
+            <table class='tab3'>
+                <tr><th>No</th><th>TIPO</th><th>FUNC</th><th>GESTION</th><th>DIAMETRO</th><th>MATERIAL</th><th>PROFUNDIDAD</th><th>ORIGEN</th><th>DESTINO</th></tr>
+                `+contenido+`
+            </table>
+            <div style='text-align:center;font-weight: bold;'>SUMIDEROS</div>
+                        <table class='tab3'>
+                <tr><th>No</th><th>MATERIAL</th><th>TAPA</th><th>ESTADO</th><th>APERTURA</th><th>SEDIMENTO</th><th>ALTURA SED</th><th>CONDICION</th></tr>
+                `+contenido2+`
+            </table>
+
+            <div style='text-align:center;font-weight: bold;'>TUBERIAS EN SUMIDEROS</div>
+            <table class='tab3'>
+                <tr><th>No</th><th>TIPO</th><th>MATERIAL</th><th>LARGO</th><th>ANCHO</th><th>ALTO</th><th>DIAMETRO</th><th>PROFUNDIDAD</th><th>ORIGEN</th><th>DESTINO</th></tr>
+                `+contenido3+`
+            </table>
+
+            </body>
+            </html>
+            `
+            document.getElementById('myelement').innerHTML = cadena
+            const d = new Printd()
+            d.print( document.getElementById('myelement') ) 
+        })
+
+        },
     }
 }
 </script>

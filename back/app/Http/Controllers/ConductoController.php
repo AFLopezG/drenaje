@@ -36,7 +36,7 @@ class ConductoController extends Controller
         $conducto->largo=$request->largo;
         $conducto->ancho=$request->ancho;
         $conducto->alto=$request->alto;
-        $conducto->diametro=$request->alto;
+        $conducto->diametro=$request->diametro;
         $conducto->profundidad=$request->profundidad;
         $conducto->origen=$request->origen;
         $conducto->destino=$request->destino;
