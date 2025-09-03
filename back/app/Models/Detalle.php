@@ -17,6 +17,7 @@ class Detalle extends Model
     'profundidad',
     'origen',
     'destino',
+    'orden',
     'inspection_id',
     ];
 }

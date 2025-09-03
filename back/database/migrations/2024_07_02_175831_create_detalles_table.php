@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('profundidad')->nullable();
             $table->string('origen');
             $table->string('destino');
+            $table->integer('orden')->default(1);
             $table->unsignedBigInteger('inspection_id')->nullable();
             $table->foreign('inspection_id')->references('id')->on('inspections');
             $table->timestamps();

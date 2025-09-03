@@ -24,8 +24,8 @@
                         </q-tooltip>
                     </q-btn>
                     <q-btn flat size="sm" color="yellow" icon="edit"  @click="getFormulario2(props.row)" v-if="store.boolmodat">
-                        <q-tooltip >
-                            MODIFICAR DATOS TUBERIAS
+                    <q-tooltip >
+                        MODIFICAR DATOS TUBERIAS
                         </q-tooltip>
                     </q-btn>
                     <q-btn flat size="sm" color="info" icon="print"  @click="impresion(props.row)" >
@@ -137,13 +137,13 @@
                     <div class="col-md-1 col-xs-6 q-pa-xs"><q-btn color="green" icon="add"  @click="agregar" /></div>
                 </div>
                 <q-table
-                    title="Lista Tuberias"
-                    :rows="detalle"
+                title="Lista Tuberias"
+                :rows="detalle"
                     :columns="coldetalle"
                     row-key="name"
                     dense
-                >
-                <template v-slot:body-cell-op="props">
+                    >
+                    <template v-slot:body-cell-op="props">
                     <q-td key="op" :props="props">
                         <q-btn flat size="sm" color="red" icon="delete"  @click="retirar(props)" />
                     </q-td>

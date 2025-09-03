@@ -40,6 +40,21 @@ class CamaraController extends Controller
     {
         //
         //return $request;
+        // validar datos
+        $request->validate([
+            'lng' => 'required|numeric',
+            'lat' => 'required|numeric',
+            'elevacion' => 'required|numeric',
+            'ubicacion' => 'required|string|max:255',
+            'codigo' => 'required|string|max:255|unique:camaras',
+            'altura' => 'nullable|numeric',
+            'tipo' => 'nullable|string|max:255',
+        ]);
+        //detalle tenga algun dato
+        if (empty($request->detalle)) {
+            return response()->json(['error' => 'El detalle es requerido'], 422);
+        }
+
         $camara = new Camara();
         $camara->lng=$request->lng;
         $camara->lat=$request->lat;
@@ -55,7 +70,14 @@ class CamaraController extends Controller
         $camara->tiptapa=$request->tiptapa;
         $camara->user_id=$request->user()->id;
         $camara->save();
-        DB::SELECT("UPDATE camaras set geom=ST_MakePoint(lng,lat) where id=$camara->id");
+
+        DB::SELECT("UPDATE camaras 
+SET geom = ST_Transform(
+              ST_SetSRID(ST_MakePoint(lng, lat), 4326), 
+              32719
+           )
+WHERE id = $camara->id;");
+
         $inspec=$request->inspec;
         $inspection = new Inspection();
         $inspection->fecha=date('Y-m-d');
@@ -89,6 +111,7 @@ class CamaraController extends Controller
             $detalle->origen=$value['origen'];
             $detalle->destino=$value['destino'];
             $detalle->inspection_id=$inspection->id;
+            $detalle->orden=$value['orden'];
             $detalle->save();
 
         }
@@ -117,7 +140,26 @@ class CamaraController extends Controller
      */
     public function update(UpdateCamaraRequest $request, Camara $camara)
     {
-                //
+                //validar datos
+        $request->validate([
+            'lng' => 'required|numeric',
+            'lat' => 'required|numeric',
+            'elevacion' => 'required|numeric',
+            'ubicacion' => 'required|string|max:255',
+            'altura' => 'nullable|numeric',
+            'tipo' => 'nullable|string|max:255',
+        ]);
+        // verificar codigo tenga dato y no se repita sin contar el mismo registro
+        if (empty($request->codigo)) {
+            return response()->json(['error' => 'El código es requerido'], 422);
+        }
+        $existingCamara = Camara::where('codigo', strtoupper($request->codigo))
+            ->where('id', '!=', $camara->id)
+            ->first();
+        if ($existingCamara) {
+            return response()->json(['error' => 'El código ya existe'], 422);
+        }
+
         $camara = Camara::find($request->id);
         $camara->lng=$request->lng;
         $camara->lat=$request->lat;
@@ -133,7 +175,12 @@ class CamaraController extends Controller
         $camara->tiptapa=$request->tiptapa;
         $camara->save();
 
-        DB::SELECT("UPDATE camaras set geom=ST_MakePoint(lng,lat) where id=$camara->id");
+        DB::SELECT("UPDATE camaras 
+                SET geom = ST_Transform(
+                            ST_SetSRID(ST_MakePoint(lng, lat), 4326), 
+                            32719
+                        )
+                WHERE id = $camara->id;");
 
         $inspec=$request->inspec;
         $inspection = Inspection::find($inspec['id']);

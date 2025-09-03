@@ -29,6 +29,6 @@ class Camara extends Model
     ];
 
     public function inspection(){
-        return $this->hasOne(Inspection::class)->with('detalles');
+        return $this->hasOne(Inspection::class)->with('detalles')->orderBy('detalles.orden', 'asc');
     }
 }
